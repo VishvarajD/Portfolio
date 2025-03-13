@@ -793,3 +793,10 @@ h2:hover::before {
         justify-content: center;
     }
 } 
+.footer-name {
+    color: #007bff;
+    text-decoration: none;
+}
+.footer-name:hover {
+    color: #0056b3;
+}
