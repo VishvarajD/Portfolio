@@ -433,4 +433,77 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+
+    // Initialize project card click counter
+    const initProjectClickCounter = () => {
+        const clickCountElement = document.getElementById('click-count');
+        let clickCount = localStorage.getItem('projectClickCount') || 0;
+        document.getElementById('click-count').textContent = clickCount;
+
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', () => {
+                clickCount++;
+                localStorage.setItem('clickCount', clickCount);
+                document.getElementById('click-count').textContent = clickCount;
+            });
+        });
+    };
+
+    // Call the function when the document is loaded
+    initProjectClickCounter();
+
+    // Initialize GSAP
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Project cards animation
+    gsap.from('.project-card', {
+        scrollTrigger: {
+            trigger: '.project-grid',
+            start: 'top center+=100',
+            toggleActions: 'play none none none'
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: {
+            amount: 0.3,
+            from: "start"
+        },
+        ease: 'power3.out'
+    });
+
+    // Project tech stack animation
+    gsap.from('.project-tech span', {
+        scrollTrigger: {
+            trigger: '.project-grid',
+            start: 'top center+=100',
+            toggleActions: 'play none none none'
+        },
+        y: 10,
+        opacity: 0,
+        duration: 0.4,
+        stagger: 0.1,
+        ease: 'power2.out'
+    });
+
+    // Project hover animations
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            gsap.to(card, {
+                y: -10,
+                duration: 0.3,
+                ease: 'power2.out',
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)'
+            });
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card, {
+                y: 0,
+                duration: 0.3,
+                ease: 'power2.out',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)'
+            });
+        });
+    });
 }); 
